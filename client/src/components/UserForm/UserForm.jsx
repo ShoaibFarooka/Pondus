@@ -153,7 +153,7 @@ const UserForm = ({ user, userType, actionType, handleSave }) => {
                     <div className='flex-row'>
                         <img src={UserImage} alt='user-image' className='user-image' />
                         <div className='name'>{user.name}</div>
-                        <div className='member-time'>Member Since: {new Date(user.createdAt).toLocaleDateString()}</div>
+                        <div className='member-time'>{userType === 'user' ? 'Member' : 'Employee'} Since: {new Date(user.createdAt).toLocaleDateString()}</div>
                     </div>
                     <div className='flex-row gap-10'>
                         {userType === 'user' &&
@@ -288,11 +288,12 @@ const UserForm = ({ user, userType, actionType, handleSave }) => {
                         </div>
                         {error.password && <div className='error'>{error.password}</div>}
                     </div>
-                    <button className='save-btn' onClick={handleContinue}>Save</button>
+                    {/* <button className='save-btn' onClick={handleContinue}>Save</button> */}
                 </div>
                 <div className='notes'>
                     <div className='title'>Notes</div>
                     <ReactQuill theme="snow" className='text-editor' value={formData.notes} onChange={handleQuillChange} />
+                    <button className='save-btn' onClick={handleContinue}>Save</button>
                 </div>
             </div>
         </div>

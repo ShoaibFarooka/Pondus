@@ -99,7 +99,7 @@ const Form = () => {
             };
             const response = await userService.resetPassword(data);
             message.success(response?.message);
-            navigate('/staff/login');
+            navigate('/company/login');
         } catch (error) {
             message.error(error.response.data?.error);
         } finally {

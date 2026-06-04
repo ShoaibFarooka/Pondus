@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const CompanyInfo = require('../models/companyInfoModel');
-require('dotenv').config();
+require('dotenv').config({ path: './configs/.env' });
 
 async function seedCompanyInfo(info) {
     const DB = process.env.DB_URI;
@@ -30,12 +30,12 @@ async function seedCompanyInfo(info) {
 };
 
 const companyInfo = {
-    name: "Company Test",
-    address: "company address",
-    city: "London",
-    zip: "90492",
+    name: "Demo Company",
+    address: "Guldbergsgade 12E",
+    city: "Silkeborg",
+    zip: "8700",
     type: "Traditional Gym",
-    logo: ""
+    logo: "https://img.freepik.com/free-vector/linear-flat-go-logo-template_23-2148973724.jpg"
 }
 
 seedCompanyInfo(companyInfo);

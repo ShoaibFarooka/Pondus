@@ -27,9 +27,9 @@ const TurnoverChart = ({ data }) => {
         datasets: [
           {
             label: 'Turnover',
-            data: chartData, // Replace with your data
+            data: chartData,
             borderColor: '#53FDCA',
-            borderWidth: '3.5',
+            borderWidth: '4',
             backgroundColor: gradient, // Use the gradient as background color
             fill: true,
             tension: 0.4, // Smooth curve
@@ -52,18 +52,41 @@ const TurnoverChart = ({ data }) => {
             display: false,
           },
           tooltip: {
+            padding: 10,
+            displayColors: false,
+            yAlign: "bottom",
+            cornerRadius: 10,
+            
+            titleColor: "#FAFAFA",
+            titleFont: {
+              size: 12,
+              weight: "lighter",
+            },
+            titleAlign: "center",
+            titleMarginBottom: 9,
+            bodyAlign: "center",
+            bodyColor: "#FFFFFF",
+            bodyFont: {
+              size: 16,
+              weight: "bold",
+            },
             callbacks: {
+              title: () => 'Turnover',
               label: function (context) {
-                let label = context.dataset.label || '';
-
-                if (label) {
-                  label += ': ';
-                }
-                if (context.parsed.y !== null) {
-                  label += `${context.parsed.y}`;
-                }
-                return label;
+                return `          ${context.parsed.y}          `;
               },
+
+              // label: function (context) {
+              //   let label = context.dataset.label || '';
+
+              //   if (label) {
+              //     label += ': ';
+              //   }
+              //   if (context.parsed.y !== null) {
+              //     label += `${context.parsed.y}`;
+              //   }
+              //   return label;
+              // },
             },
           },
           title: { // Add the title configuration here
@@ -71,7 +94,7 @@ const TurnoverChart = ({ data }) => {
             text: 'Turnover',
             position: 'top',
             padding: {
-              top: 10,
+              top: 30,
               bottom: 20
             },
             font: {

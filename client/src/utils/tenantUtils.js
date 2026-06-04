@@ -16,7 +16,6 @@ const getTenantId = async () => {
             console.log('Unable to fetch tenant id from admin server');
         }
     }
-    console.log('Current Tenant Id: ', tenantId);
     return tenantId;
 };
 

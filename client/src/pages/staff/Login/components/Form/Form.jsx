@@ -81,7 +81,7 @@ const Form = () => {
                     sameSite: 'Lax'
                 });
                 const from = location.state?.from.pathname;
-                navigate(from || '/staff');
+                navigate(from || '/company');
             }
         } catch (error) {
             message.error(error.response.data?.error);
@@ -137,7 +137,7 @@ const Form = () => {
                         />
                         <label htmlFor='rememberMe'>Remember Me</label>
                     </div>
-                    <Link to='/staff/forget-password' className='nav-link'>Forgot your password?</Link>
+                    <Link to='/company/forgot-password' className='nav-link'>Forgot your password?</Link>
                 </div>
                 <button className='btn' onClick={handleSubmit}>Log In</button>
             </div>

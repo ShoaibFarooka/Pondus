@@ -19,12 +19,15 @@ const GetDashboardData = async (req, res, next) => {
         const newMembersCount = await subscriptionService.getNewMembersCount(req.dbConnectionId);
         const lostMembersCount = await subscriptionService.getLostMembersCount(req.dbConnectionId);
         const growthRate = await subscriptionService.getGrowthRateData(turnover);
+        const { averageCLV, averageLifetime } = await subscriptionService.getAverageCLVAndLifetime(req.dbConnectionId);
         const data = {
             turnover,
             activeMembersCount,
             newMembersCount,
             lostMembersCount,
-            growthRate
+            growthRate,
+            averageCLV,
+            averageLifetime
         };
         res.status(200).json({ data });
     } catch (error) {

@@ -164,7 +164,7 @@
     cursor: pointer;
 }
 
-.user-form .input-form .save-btn {
+.user-form .save-btn {
     width: 120px;
     height: 40px;
     border: none;
@@ -199,6 +199,6 @@
     color: var(--secondary-color-3);
 }
 
-.user-form .text-editor {
+.user-form .notes .text-editor {
     width: 100%;
 }

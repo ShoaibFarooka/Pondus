@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import '../../../../../styles/authForm.css';
-import { Link } from 'react-router-dom';
-// import Cookies from 'js-cookie';
+import { Link, useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 import { useDispatch } from 'react-redux';
 import { HideLoading, ShowLoading } from '../../../../../redux/loaderSlice';
@@ -32,6 +31,7 @@ const Form = () => {
         password: "",
     });
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const handleChange = (event) => {
@@ -129,6 +129,7 @@ const Form = () => {
         try {
             const response = await userService.registerUser(user);
             message.success(response?.message);
+            navigate('/login');
         } catch (error) {
             message.error(error.response.data?.error);
         } finally {

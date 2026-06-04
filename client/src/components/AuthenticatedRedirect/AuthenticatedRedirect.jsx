@@ -7,9 +7,9 @@ const AuthenticatedRedirect = ({ children, ...rest }) => {
     const isAuth = isAuthenticated();
 
     if (isAuth) {
-        // Check if the current path starts with '/staff'
-        if (location.pathname.startsWith('/staff')) {
-            return <Navigate to="/staff" replace state={{ from: location }} />;
+        // Check if the current path starts with '/company'
+        if (location.pathname.startsWith('/company')) {
+            return <Navigate to="/company" replace state={{ from: location }} />;
         }
         // Default redirect path
         return <Navigate to="/" replace state={{ from: location }} />;

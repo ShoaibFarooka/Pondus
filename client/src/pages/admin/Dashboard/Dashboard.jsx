@@ -51,8 +51,9 @@ const Dashboard = () => {
                 <>
                     <TurnoverGraph data={data.turnover} />
                     <div className='bottom-div'>
-                        <CLVSpeedometer />
                         <GrowthRateChart data={data.growthRate} selectedView={selectedView} />
+                        <CLVSpeedometer title={"Customer Lifetime Value"} value={data.averageCLV} unit={"DKK"} min={0} max={5000} />
+                        <CLVSpeedometer title={"Customer Lifetime"} value={data.averageLifetime} unit={"Months"} min={0} max={12} />
                     </div>
                     <div className='counter-card-container'>
                         <CounterCard value={data.activeMembersCount} description="Active members (on average)" query='active' />

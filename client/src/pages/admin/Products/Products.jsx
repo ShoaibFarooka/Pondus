@@ -20,7 +20,8 @@ const Products = () => {
         try {
             const response = await productService.fetchAllProducts();
             if (response.products) {
-                setData(response.products);
+                const filteredProducts = response.products.filter(product => product.type === 'Subscription');
+                setData(filteredProducts);
             }
         } catch (error) {
             message.error(error.response.data.error);

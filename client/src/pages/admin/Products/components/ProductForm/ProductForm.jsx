@@ -110,8 +110,8 @@ const ProductForm = ({ product, actionType, handleSave }) => {
                     <div className='input-container'>
                         <div className='input-wrapper'>
                             <label htmlFor='description' className='label'>Description</label>
-                            <input
-                                type='text'
+                            <textarea
+                                rows={5}
                                 name='description'
                                 id='description'
                                 className={`input`}

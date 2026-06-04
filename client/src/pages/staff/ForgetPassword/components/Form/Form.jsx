@@ -31,7 +31,7 @@ const Form = ({ email, setEmail, emailError, handleReset }) => {
             </div>
             <div className='navigation'>
                 <div>Already have an account?</div>
-                <Link to='/staff/login' className='nav-link'>Log in here</Link>
+                <Link to='/company/login' className='nav-link'>Log in here</Link>
             </div>
         </div>
     )

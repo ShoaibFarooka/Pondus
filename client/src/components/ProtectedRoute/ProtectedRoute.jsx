@@ -9,7 +9,7 @@ import Unauthorized from '../../pages/common/Unauthorized/Unauthorized.jsx';
 
 const ProtectedRoute = ({ children, showSidebar, ...rest }) => {
     const location = useLocation();
-    const redirectTo = location.pathname.startsWith('/staff') ? '/staff/login' : '/login';
+    const redirectTo = location.pathname.startsWith('/company') ? '/company/login' : '/login';
     const isAuth = isAuthenticated();
     const [isAuthorized, setIsAuthorized] = useState('pending');
     const hasLoggedOut = useSelector(state => state.logout.hasLoggedOut);

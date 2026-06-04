@@ -2,11 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import './CLVSpeedometer.css';
 import Chart from 'chart.js/auto';
 
-const CLVSpeedometer = () => {
+const CLVSpeedometer = ({ title, value, unit, min, max }) => {
     const chartRef = useRef(null);
-    const value = 9.23; // The value to indicate with the needle
-    const max = 10; // Maximum value of the gauge
-    const min = 0;  // Minimum value of the gauge
+    // const value = 9.23; // The value to indicate with the needle
+    // const max = 10; // Maximum value of the gauge
+    // const min = 0;  // Minimum value of the gauge
 
     useEffect(() => {
         const ctx = chartRef.current.getContext('2d');
@@ -17,8 +17,13 @@ const CLVSpeedometer = () => {
         gradient.addColorStop(0.5, '#FFD66B');
         gradient.addColorStop(1, '#53FDCA');
 
-        const filledPercentage = ((value - min) / (max - min)) * 100;
-        console.log('Filled Percentage: ', filledPercentage);
+        let filledPercentage;
+        if (value > max) {
+            filledPercentage = 100;
+        } else {
+            filledPercentage = ((value - min) / (max - min)) * 100;
+            console.log('Filled Percentage: ', filledPercentage);
+        }
 
         const data = {
             datasets: [
@@ -55,13 +60,13 @@ const CLVSpeedometer = () => {
 
     return (
         <div className='speedometer-container'>
-            <div className='title'>Customer Lifetime Value</div>
-            <div className='description'>for the period (on average)</div>
+            <div className='title'>{title}</div>
+            <div className='description'>on average</div>
             <div className='canvas-container'>
                 <canvas ref={chartRef}></canvas>
             </div>
             <div className='value-container'>
-                <span className='value'>{value}</span> <br /> <span className='unit'>DKK</span>
+                <span className='value'>{value}</span> <br /> <span className='unit'>{unit}</span>
             </div>
         </div>
     );

@@ -17,7 +17,7 @@ const ResendEmail = ({ handleReset, setView }) => {
             </div>
             <div className='navigation navigation-2'>
                 <div>Already have an account?</div>
-                <Link to='/staff/login' className='nav-link'>Log in here</Link>
+                <Link to='/company/login' className='nav-link'>Log in here</Link>
             </div>
         </div>
     )

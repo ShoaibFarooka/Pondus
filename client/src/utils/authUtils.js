@@ -15,7 +15,7 @@ const verifyAuthorization = (role) => {
     const currentPath = normalizePath(window.location.pathname);
     if (role === 'user' && currentPath === '/success') {
         return true;
-    } else if (currentPath === '' || currentPath === '/staff') {
+    } else if (currentPath === '' || currentPath === '/company') {
         return true;
     }
     const allowedPages = menuItems[role]?.map(item => item.path) || [];

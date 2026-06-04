@@ -52,7 +52,7 @@ const ForgotPassword = async (req, res, next) => {
     }
     const { user, resetToken } = await userService.createResetToken(req.dbConnectionId, email, requiredRoles);
     const CLIENT_URL = req.get('origin');
-    const resetLink = `${CLIENT_URL}/${userType === 'staff' ? 'staff/' : ''}reset-password?token=${resetToken}`;
+    const resetLink = `${CLIENT_URL}/${userType === 'staff' ? 'company/' : ''}reset-password?token=${resetToken}`;
     const templatePath = path.join(__dirname, '../templates/resetPasswordEmailTemplate.hbs');
     const companyInfo = await companyInfoService.fetchCompanyInfo(req.dbConnectionId);
     const data = {

@@ -13,12 +13,12 @@ const createUser = async (connectionId, userData) => {
     error.code = 409;
     throw error;
   }
-  existingUser = await User.findOne({ number });
-  if (existingUser) {
-    const error = new Error('A user with that number has already been registered!');
-    error.code = 409;
-    throw error;
-  }
+  // existingUser = await User.findOne({ number });
+  // if (existingUser) {
+  //   const error = new Error('A user with that number has already been registered!');
+  //   error.code = 409;
+  //   throw error;
+  // }
   let passwordDigest = await authUtils.hashPassword(password);
   const user = await User.create({
     name,
@@ -245,14 +245,14 @@ const updateUser = async (connectionId, stripeConfig, userId, updateData, role =
       throw error;
     }
   }
-  if (updateData.number && updateData.number !== userToUpdate.number) {
-    existingUser = await User.findOne({ number: updateData.number });
-    if (existingUser) {
-      const error = new Error('A user with that number has already been registered!');
-      error.code = 409;
-      throw error;
-    }
-  }
+  // if (updateData.number && updateData.number !== userToUpdate.number) {
+  //   existingUser = await User.findOne({ number: updateData.number });
+  //   if (existingUser) {
+  //     const error = new Error('A user with that number has already been registered!');
+  //     error.code = 409;
+  //     throw error;
+  //   }
+  // }
   const updatedUser = await User.findByIdAndUpdate(
     userId,
     updateData,
@@ -260,7 +260,7 @@ const updateUser = async (connectionId, stripeConfig, userId, updateData, role =
   );
   if (updateData.email && updateData.email !== userToUpdate.email && updatedUser.stripeCustomerId) {
     console.log('Updating customer email...');
-    await stripeService.updateCustomerEmail(stripeConfig, updatedUser.stripeCustomerId, data.email);
+    await stripeService.updateCustomerEmail(stripeConfig, updatedUser.stripeCustomerId, updateData.email);
   }
   return updatedUser;
 };

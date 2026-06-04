@@ -11,61 +11,6 @@ import UserForm from '../../../components/UserForm/UserForm';
 import userService from '../../../services/userService';
 
 const Employees = () => {
-    const newData = [
-        {
-            name: 'Martha Steward',
-            email: 'marthastew@mail.com',
-            number: '+45 75700546',
-            dateOfBirth: "1990-05-16",
-            address: "Johar Town",
-            city: "Lahore",
-            zip: "7600",
-            status: 'on leave',
-            notes: "<p>notes testing</p>",
-            createdAt: "2024-08-15T12:22:28.109+00:00",
-            updatedAt: "2024-09-15T09:16:32.109+00:00",
-        },
-        {
-            name: 'Tony Stark',
-            email: 'tonystark@mail.com',
-            number: '+45 75700549',
-            dateOfBirth: "1998-07-27",
-            address: "Model Town",
-            city: "Lahore",
-            zip: "9200",
-            status: '',
-            notes: '',
-            createdAt: "2024-08-15T12:22:28.109+00:00",
-            updatedAt: "2024-09-15T09:16:32.109+00:00",
-        },
-        {
-            name: 'Steve Rogers',
-            email: 'steverogers@mail.com',
-            number: '+45 75700548',
-            dateOfBirth: "2000-09-11",
-            address: "Defence",
-            city: "Lahore",
-            zip: "1700",
-            status: '',
-            notes: '',
-            createdAt: "2024-08-15T12:22:28.109+00:00",
-            updatedAt: "2024-09-15T09:16:32.109+00:00",
-        },
-        {
-            name: 'Bruce Banner',
-            email: 'brucebanner@mail.com',
-            number: '+45 75700541',
-            dateOfBirth: "1994-01-08",
-            address: "Bahria Town",
-            city: "Lahore",
-            zip: "5600",
-            status: '',
-            notes: '',
-            createdAt: "2024-08-15T12:22:28.109+00:00",
-            updatedAt: "2024-09-15T09:16:32.109+00:00",
-        }
-    ];
-
     const [pageIndex, setPageIndex] = useState(1);
     const [data, setData] = useState([]);
     const [isOpen, setIsOpen] = useState(false);

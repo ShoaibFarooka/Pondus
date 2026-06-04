@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const User = require('../models/userModel');
-require('dotenv').config();
+require('dotenv').config({path: "./configs/.env"});
 const authUtils = require('../utils/authUtils');
 
 async function seedAdmin(userData) {
@@ -44,7 +44,7 @@ async function seedAdmin(userData) {
 
 const admin = {
     name: "Admin Test",
-    email: "admin2@gmail.com",
+    email: "admin@gmail.com",
     number: "+923370396721",
     dateOfBirth: "1990-05-17",
     address: "test address",

@@ -21,26 +21,26 @@ import NotFound from '../pages/common/NotFound/NotFound.jsx';
 import Blocked from '../pages/common/Blocked/Blocked.jsx';
 
 const routes = [
-  //staff
-  { path: "/staff/login", element: <AuthenticatedRedirect><StaffLogin /></AuthenticatedRedirect>, protected: false, showSidebar: false },
-  { path: "/staff/forget-password", element: <AuthenticatedRedirect><StaffForgetPassword /></AuthenticatedRedirect>, protected: false, showSidebar: false },
-  { path: "/staff/reset-password", element: <AuthenticatedRedirect><StaffResetPassword /></AuthenticatedRedirect>, protected: false, showSidebar: false },
-  { path: "/staff/common/users", element: <StaffUsers />, protected: true, showSidebar: true },
-  { path: "/staff", element: <Redirect />, protected: true, showSidebar: true },
+  //company
+  { path: "/company/login", element: <AuthenticatedRedirect><StaffLogin /></AuthenticatedRedirect>, protected: false, showSidebar: false },
+  { path: "/company/forgot-password", element: <AuthenticatedRedirect><StaffForgetPassword /></AuthenticatedRedirect>, protected: false, showSidebar: false },
+  { path: "/company/reset-password", element: <AuthenticatedRedirect><StaffResetPassword /></AuthenticatedRedirect>, protected: false, showSidebar: false },
+  { path: "/company/common/users", element: <StaffUsers />, protected: true, showSidebar: true },
+  { path: "/company", element: <Redirect />, protected: true, showSidebar: true },
 
   //admin
-  { path: "/staff/admin/dashboard", element: <AdminDashboard />, protected: true, showSidebar: true },
-  { path: "/staff/admin/employees", element: <AdminEmployees />, protected: true, showSidebar: true },
-  { path: "/staff/admin/products", element: <AdminProducts />, protected: true, showSidebar: true },
-  { path: "/staff/admin/settings", element: <AdminSettings />, protected: true, showSidebar: true },
+  { path: "/company/admin/dashboard", element: <AdminDashboard />, protected: true, showSidebar: true },
+  { path: "/company/admin/employees", element: <AdminEmployees />, protected: true, showSidebar: true },
+  { path: "/company/admin/products", element: <AdminProducts />, protected: true, showSidebar: true },
+  { path: "/company/admin/settings", element: <AdminSettings />, protected: true, showSidebar: true },
 
   //employee
-  { path: "/staff/employee/settings", element: <EmployeeSettings />, protected: true, showSidebar: true },
+  { path: "/company/employee/settings", element: <EmployeeSettings />, protected: true, showSidebar: true },
 
   //user
   { path: "/login", element: <AuthenticatedRedirect><UserLogin /></AuthenticatedRedirect>, protected: false, showSidebar: false },
   { path: "/register", element: <AuthenticatedRedirect><Register /></AuthenticatedRedirect>, protected: false, showSidebar: false },
-  { path: "/forget-password", element: <AuthenticatedRedirect><ForgetPassword /></AuthenticatedRedirect>, protected: false, showSidebar: false },
+  { path: "/forgot-password", element: <AuthenticatedRedirect><ForgetPassword /></AuthenticatedRedirect>, protected: false, showSidebar: false },
   { path: "/reset-password", element: <AuthenticatedRedirect><ResetPassword /></AuthenticatedRedirect>, protected: false, showSidebar: false },
   { path: "/billing", element: <Billing />, protected: true, showSidebar: true },
   { path: "/plans", element: <Plans />, protected: true, showSidebar: true },

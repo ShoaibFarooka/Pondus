@@ -369,6 +369,99 @@ const getGrowthRateData = async (turnoverData) => {
 
 // getGrowthRateData();
 
+// const getAverageCLV = async (connectionId) => {
+//     const Subscription = loadDBModel(connectionId, 'subscription');
+
+//     try {
+//         const customers = await Subscription.find().populate('user');
+
+//         if (customers.length === 0) {
+//             return 0; // No customers found
+//         }
+
+//         let totalRevenue = 0;
+//         let totalCustomers = new Set();
+
+//         customers.forEach(customer => {
+//             let customerTotalRevenue = 0;
+
+//             customer.subscriptions.forEach(subscription => {
+//                 const monthsActive = Math.ceil((new Date(subscription.endDate) - new Date(subscription.startDate)) / (1000 * 60 * 60 * 24 * 30)); // Calculate total active months
+//                 customerTotalRevenue += subscription.paidAmount * monthsActive;
+//             });
+
+//             if (customerTotalRevenue > 0) {
+//                 totalRevenue += customerTotalRevenue;
+//                 totalCustomers.add(customer.customerId); // Add unique customer
+//             }
+//         });
+
+//         console.log('Total Customers: ', totalCustomers.size);
+//         console.log('Total Revenue: ', totalRevenue);
+
+//         // Calculate average CLV
+//         const averageCLV = totalCustomers.size > 0 ? totalRevenue / totalCustomers.size : 0;
+
+//         return averageCLV;
+//     } catch (error) {
+//         console.error(error);
+//         throw new Error('Error calculating average CLV');
+//     }
+// }
+
+const getAverageCLVAndLifetime = async (connectionId) => {
+    const Subscription = loadDBModel(connectionId, 'subscription');
+
+    try {
+        const customers = await Subscription.find().populate('user');
+
+        if (customers.length === 0) {
+            return { averageCLV: 0, averageLifetime: 0 }; // No customers found
+        }
+
+        let totalRevenue = 0;
+        let totalCustomers = new Set();
+        let totalLifetimeMonths = 0;
+        let totalSubscriptionCount = 0;
+
+        customers.forEach(customer => {
+            let customerTotalRevenue = 0;
+            let customerLifetimeMonths = 0;
+
+            customer.subscriptions.forEach(subscription => {
+                const monthsActive = Math.ceil((new Date(subscription.endDate) - new Date(subscription.startDate)) / (1000 * 60 * 60 * 24 * 30)); // Calculate total active months
+                customerTotalRevenue += subscription.paidAmount * monthsActive;
+                customerLifetimeMonths += monthsActive;
+                totalSubscriptionCount++;
+            });
+
+            if (customerTotalRevenue > 0) {
+                totalRevenue += customerTotalRevenue;
+                totalCustomers.add(customer.customerId); // Add unique customer
+            }
+            totalLifetimeMonths += customerLifetimeMonths;
+        });
+
+        // console.log('Total Customers: ', totalCustomers.size);
+        // console.log('Total Revenue: ', totalRevenue);
+        // console.log('Total Subscription Count: ', totalSubscriptionCount);
+
+        // Calculate average CLV
+        const averageCLV = totalCustomers.size > 0 ? (totalRevenue / totalCustomers.size).toFixed(0) : 0;
+
+        // Calculate average customer lifetime in months
+        const averageLifetime = totalSubscriptionCount > 0 ? (totalLifetimeMonths / totalSubscriptionCount).toFixed(2) : 0;
+
+        console.log('Average CLV: ', averageCLV);
+        console.log('Average Lifetime: ', averageLifetime);
+
+        return { averageCLV, averageLifetime };
+    } catch (error) {
+        console.error(error);
+        throw new Error('Error calculating average CLV and lifetime');
+    }
+};
+
 module.exports = {
     addSubscription,
     updateSubscription,
@@ -379,4 +472,5 @@ module.exports = {
     getNewMembersCount,
     getLostMembersCount,
     getGrowthRateData,
+    getAverageCLVAndLifetime,
 }

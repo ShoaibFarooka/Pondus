@@ -4,7 +4,7 @@ import HeartIcon from '../../../../../assets/icons/heart.svg?react';
 
 const CounterCard = ({ value, description, query }) => {
     return (
-        <Link to={`/staff/common/users?status=${query}`} className='counter-card'>
+        <Link to={`/company/common/users?status=${query}`} className='counter-card'>
             <HeartIcon />
             <div className='text'>
                 <div className='value'>{value}</div>

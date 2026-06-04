@@ -1,0 +1,89 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Run tests
+        run: |
+          echo "Running tests..."
+          # Add your actual test command here, e.g., npm test
+
+  deploy:
+    if: github.event_name == 'push'
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [20]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Pull latest code
+        run: git pull origin main
+        working-directory: /var/www/pondus_app
+  
+      - name: Cache client dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            /var/www/pondus_app/client/node_modules
+            /root/.npm
+          key: ${{ runner.os }}-node-client-${{ hashFiles('client/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-client-
+
+      - name: Install client dependencies
+        run: npm ci
+        working-directory: /var/www/pondus_app/client
+
+      - name: Build client in temp directory
+        run: npm run build
+        working-directory: /var/www/pondus_app/client
+
+      - name: Move built client files from temp to dist
+        run: |
+          rsync -av /var/www/pondus_app/client/temp_build/ /var/www/pondus_app/client/dist/
+          rm -rf /var/www/pondus_app/client/temp_build
+        working-directory: /var/www/pondus_admin/client
+
+      - name: Cache server dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            /var/www/pondus_app/server/node_modules
+            /root/.npm
+          key: ${{ runner.os }}-node-server-${{ hashFiles('server/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-server-
+
+      - name: Install server dependencies
+        run: npm ci
+        working-directory: /var/www/pondus_app/server
+
+      - name: Restart server
+        run: pm2 restart "Pondus Server"

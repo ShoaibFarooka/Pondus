@@ -1,14 +1,16 @@
 .growth-rate-chart {
     border-radius: 5px;
     flex: 1;
+    height: 288px;
     background-color: white;
 }
 
 .growth-rate-chart .chart-header {
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    /* align-items: center; */
     justify-content: space-between;
-    padding: 30px 40px;
+    padding: 30px 20px;
 }
 
 .growth-rate-chart .chart-title {
@@ -17,13 +19,21 @@
     font-weight: 700;
 }
 
-.growth-rate-chart .chart-percentage {
-    font-size: 22px;
-    color: #40A356;
-    font-weight: 700;
+.growth-rate-chart .chart-description {
+    font-size: 14px;
+    font-weight: var(--font-weight-base);
+    color: var(--secondary-color-3);
+    margin-bottom: 40px;
 }
 
-.growth-rate-chart-container {
+.growth-rate-chart .chart-percentage {
+    font-size: 44px;
+    color: #40A356;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* .growth-rate-chart-container {
     width: 100%;
     height: 200px;
     position: relative;
@@ -32,4 +42,10 @@
 .growth-rate-chart-container canvas {
     width: 100% !important;
     height: 100% !important;
+} */
+
+@media only screen and (max-width: 1290px) {
+    .growth-rate-chart .chart-header {
+        padding: 30px 10px;
+    }   
 }

@@ -17,13 +17,20 @@ const Plans = () => {
         subscriptionId: '',
         amount: null
     });
+    const [oldProductId, setOldProductId] = useState(null);
     const dispatch = useDispatch();
 
     const getSubscriptionInfo = async () => {
+        console.log('Old ID: ', oldProductId);
         try {
             const response = await subscriptionService.getUserSubscriptionInfo();
             if (response.info) {
+                console.log('Info: ', response.info);
                 setInfo(response.info);
+                if (oldProductId && oldProductId === response.info.productId) {
+                    await new Promise(resolve => setTimeout(resolve, 3000));
+                    await getSubscriptionInfo();
+                }
             }
         } catch (error) {
             message.error(error.response.data.error);
@@ -49,12 +56,24 @@ const Plans = () => {
         fetchProducts();
     }, []);
 
+    useEffect(() => {
+        const updateSubscriptionInfo = async () => {
+            if (oldProductId) {
+                dispatch(ShowLoading());
+                await getSubscriptionInfo();
+                dispatch(HideLoading());
+            }
+        };
+        updateSubscriptionInfo();
+    }, [oldProductId]);
+
     const handleContinue = async (priceId) => {
         dispatch(ShowLoading());
         try {
             if (info.status) {
                 const response = await stripeService.updateSubscription({ newPriceId: priceId });
-                await getSubscriptionInfo();
+                setOldProductId(info.productId);
+                console.log('Setting ID...');
                 message.success(response.message);
             }
             else {

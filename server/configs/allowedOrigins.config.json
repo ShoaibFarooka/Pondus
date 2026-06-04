@@ -1,0 +1,11 @@
+{
+    "production": [
+        "https://app.pondus.io",
+        "https://www.app.pondus.io",
+        "https://sportx.app.pondus.io",
+        "https://www.sportx.app.pondus.io"
+    ],
+    "development": [
+        "http://localhost:5174"
+    ]
+}
